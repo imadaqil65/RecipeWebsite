@@ -1,0 +1,92 @@
+﻿@page
+@using MyApplication.Domain.Enums
+@using MyApplication.Domain.Recipes
+@model Web_Application.Pages.EditDetailsModel
+@{
+	ViewData["Title"] = "Edit Recipe Details";
+}
+<div class="Addrecipe-page">
+	<p class="font-big" style="display:@Model.Display">@Model.Message</p>
+	<h1 style="grid-column=1/-1; text-align:center;">Edit Recipe Details</h1>
+	<form class="recipe-form" method="post" enctype="multipart/form-data">
+		<input type="hidden" asp-for="recipeDTO.Id" />
+			<label asp-for="recipeDTO.recipeName" class="lbl-recipe">Recipe Name</label>
+		<input asp-for="recipeDTO.recipeName" class="recipe-input" type="text" />
+		<span class="warning-span" asp-validation-for="recipeDTO.recipeName"></span>
+		<label asp-for="recipeDTO.description" class="lbl-recipe">Image</label>
+		<input asp-for="recipeDTO.image" type="file" accept="image/png, image/jpeg" />
+		<label asp-for="recipeDTO.Recipetype" class="lbl-recipe">Recipe Type</label>
+		<select id="recipe-type" asp-for="recipeDTO.Recipetype" class="recipe-input" placeholder="-" disabled="true">
+			<option value="">-</option>
+			@foreach(recipetype type in Enum.GetValues(typeof(recipetype)))
+			{
+				<option value="@type">@type.GetEnumDescription()</option>
+			}
+		</select>
+		<label asp-for="recipeDTO.description" class="lbl-recipe">Description</label>
+		<textarea asp-for="recipeDTO.description" class="recipe-input desc-input" type="text"></textarea>
+		<span class="warning-span" asp-validation-for="recipeDTO.description"></span>
+		<label asp-for="recipeDTO.ingredients" class="lbl-recipe">Ingredients</label>
+		<textarea asp-for="recipeDTO.ingredients" class="recipe-input desc-input" type="text"></textarea>
+		<span class="warning-span" asp-validation-for="recipeDTO.ingredients"></span>
+		<label asp-for="recipeDTO.preptime" class="lbl-recipe">Preparation Time<br />(in minutes)</label>
+		<input asp-for="recipeDTO.preptime" class="recipe-input" type="number" />
+		<span class="warning-span" asp-validation-for="recipeDTO.preptime"></span>
+		<label asp-for="recipeDTO.cooktime" class="lbl-recipe">Cooking Time<br />(in minutes)</label>
+		<input asp-for="recipeDTO.cooktime" class="recipe-input" type="number" />
+		<span class="warning-span" asp-validation-for="recipeDTO.cooktime"></span>
+		<label asp-for="recipeDTO.steps" class="lbl-recipe">Steps</label>
+		<textarea asp-for="recipeDTO.steps" class="recipe-input desc-input" type="text" ></textarea>
+		<span class="warning-span" asp-validation-for="recipeDTO.steps"></span>
+
+		@if (Model.recipedetails is MainCourse)
+		{
+			<div id="maincourse">
+				<label asp-for="MainCourse.cuisineType" class="lbl-recipe">Cuisine Type</label>
+				<input asp-for="MainCourse.cuisineType" class="recipe-input" type="text" />
+				<span class="warning-span" asp-validation-for="MainCourse.cuisineType"></span>
+				<label asp-for="MainCourse.servingSuggestion" class="lbl-recipe">Serving suggestion</label>
+				<textarea asp-for="MainCourse.servingSuggestion" class="recipe-input desc-input" type="text" ></textarea>
+				<span class="warning-span" asp-validation-for="MainCourse.servingSuggestion"></span>
+				<label asp-for="SelectedDiets" class="lbl-recipe" style="grid-column:1/-1;"><b>Diet Restrictions</b></label>
+				@foreach (Diet diet in Enum.GetValues(typeof(Diet)))
+				{
+					<span class="lbl-recipe">@diet.GetEnumDescription()</span>
+					<input class="checkbox-stick-left" type="checkbox" name="selectedDiets" value="@diet" checked="@(Model.SelectedDiets != null && Model.SelectedDiets.Contains(diet))" />
+				}
+				<input asp-page-handler="MainCourse" style="grid-column:1/-1" type="submit" value="Modify Recipe" class="user-input btn-user-input" />
+			</div>
+		}
+		else if (Model.recipedetails is Drink)
+		{
+			<div id="drink">
+				<label asp-for="Drink.alcoholic" class="lbl-recipe">Alcoholic</label>
+				<input asp-for="Drink.alcoholic" class="checkbox-stick-left" type="checkbox" />
+
+				<label asp-for="Drink.drinkType" class="lbl-recipe">Drink Type</label>
+				<input asp-for="Drink.drinkType" class="recipe-input" type="text" />
+				<span class="warning-span" asp-validation-for="Drink.drinkType"></span>
+				<label asp-for="Drink.glassType" class="lbl-recipe">Glass Type</label>
+				<input asp-for="Drink.glassType" class="recipe-input" type="text" />
+				<span class="warning-span" asp-validation-for="Drink.glassType"></span>
+				<input asp-page-handler="Drink" style="grid-column:1/-1" type="submit" value="Modify Recipe" class="user-input btn-user-input" />
+			</div>
+		}
+		else if (Model.recipedetails is Dessert)
+		{
+			<div id="dessert">
+				<label asp-for="Dessert.dessertType" class=" lbl-recipe">Dessert Type</label>
+				<input asp-for="Dessert.dessertType" class="recipe-input" type="text" />
+				<span class="warning-span" asp-validation-for="Dessert.dessertType"></span>
+				<label asp-for="Dessert.servingMethod" class="lbl-recipe">Serving method</label>
+				<textarea asp-for="Dessert.servingMethod" class="recipe-input desc-input" type="text"></textarea>
+				<span class="warning-span" asp-validation-for="Dessert.servingMethod"></span>
+				<label asp-for="Dessert.topping" class="lbl-recipe">Topping</label>
+				<textarea asp-for="Dessert.topping" class="recipe-input desc-input" type="text"></textarea>
+				<span class="warning-span" asp-validation-for="Dessert.topping"></span>
+				<input asp-page-handler="Dessert" style="grid-column:1/-1" type="submit" value="Modify Recipe" class="user-input btn-user-input" />
+			</div>
+		}
+
+	</form>
+</div>

@@ -1,0 +1,29 @@
+﻿@page
+@model Web_Application.Pages.RegisterModel
+@{
+	ViewData["Title"] = "Register";
+}
+
+<div class="Form-content">
+	<form class="form-design" method="post">
+		<h1>Register</h1>
+		<h4 style="@Model.Display">@Model.Message</h4>
+		<label class="lbl-user-input">Email</label>
+		<input asp-for="register.email" class="user-input" type="email" />
+		<span class="warning-span" asp-validation-for="register.email"></span>
+		<label class="lbl-user-input">Username</label>
+		<input asp-for="register.username" class="user-input" type="text" />
+		<span class="warning-span" asp-validation-for="register.username"></span>
+		<label class="lbl-user-input">Password</label>
+		<input asp-for="register.password" class="user-input" type="password" />
+		<span class="warning-span" asp-validation-for="register.password"></span>
+		<input type="submit" value="Register" class="user-input btn-user-input" />
+		<p class="lbl-user-input">
+			Already have an account?<a asp-page="/Login">Log in here</a>
+		</p>
+	</form>
+</div>
+
+@section scripts{
+	<partial name="_ValidationScriptsPartial" />
+}

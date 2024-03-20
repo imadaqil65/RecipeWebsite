@@ -1,0 +1,25 @@
+﻿@page
+@model Web_Application.Pages.LoginModel
+@{
+	ViewData["Title"] = "Login";
+}
+
+<div class="Form-content">
+	<form class="form-design" method="post">
+		<h4 style="@Model.display" class="">@Model.message</h4>
+		<h1>Login</h1>
+		<label class="lbl-user-input">Username</label>
+		<input asp-for="credentials.username" class="user-input" type="text" />
+		<span class="warning-span" asp-validation-for="credentials.username"></span>
+		<label class="lbl-user-input">Password</label>
+		<input asp-for="credentials.password" class="user-input" type="password" />
+		<span class="warning-span" asp-validation-for="credentials.password"></span>
+		<a class="a-link" asp-page="/PasswordReset">forgot password?</a>
+		<input type="submit" value="Login" class="user-input btn-user-input" />
+		<p class="lbl-user-input">Don't have an account yet? <a asp-page="/Register">Register an Account</a></p>
+	</form>
+</div>
+
+@section scripts{
+	<partial name="_ValidationScriptsPartial" />
+}

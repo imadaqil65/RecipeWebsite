@@ -1,0 +1,97 @@
+﻿@page
+@using MyApplication.Domain.Recipes
+@using MyApplication.Domain.Enums
+@using System.Security.Claims
+@model Web_Application.Pages.RecipeDetailsModel
+@{
+		ViewData["Title"] = "Recipe Details";
+}
+@if (Model.recipe != null)
+{
+	<div class="Details-content">
+
+		@if (@Model.recipe.image != null && @Model.recipe.image.Length > 0)
+		{
+			<img class="image-preset" src="data:image/png;base64,@Convert.ToBase64String(@Model.recipe.image)">
+		}
+		else
+		{
+			<img src="@Model.recipe.image" class="img-preview" alt="@Model.recipe.name image" />
+		}
+		<form method="post">
+			@if (!Model.liked)
+			{
+				<button type="submit" asp-page-handler="Like" asp-route-id="@Model.recipe.recipeid" name="favorite" value="Favorite" class="lbl-user-input"><ion-icon name="heart-outline" size="large"></ion-icon>@Model.recipe.TotalLikes</button>
+			}
+			else
+			{
+				<button type="submit" asp-page-handler="Dislike" asp-route-id="@Model.recipe.recipeid" name="unfavorite" value="Unfavorite" class="lbl-user-input"><ion-icon name="heart" size="large"></ion-icon>@Model.recipe.TotalLikes</button>
+			}
+		</form>
+		<h1>@Model.recipe.name</h1>
+		<h3><strong>Author:</strong> @Model.recipe.author</h3>
+		<p><strong>Ingredients:</strong> @Model.recipe.Ingredients</p>
+		@if (Model.recipe is MainCourse mainCourse)
+		{
+			<p><strong>Cuisine Type:</strong> @mainCourse.cuisineType</p>
+			<h2>Compatible with:</h2>
+			foreach (var diet in mainCourse.dietaryType)
+			{
+				<p>@diet.GetEnumDescription()</p>
+			}
+			<p><strong>Suggestion for Recipe:</strong> <br /> @mainCourse.servingSuggestion</p>
+		}
+		else if (Model.recipe is Drink drink)
+		{
+			<p>
+				<strong>Alcoholic:</strong>
+				@switch (drink.alcoholic)
+				{
+					case true:
+						<ion-icon name="checkmark-outline"></ion-icon>
+						break;
+					case false:
+						<ion-icon name="close-outline"></ion-icon>
+						break;
+				}
+			</p>
+		}
+		else if (Model.recipe is Dessert dessert)
+		{
+			@*do something*@
+		}
+		<h2>Steps:</h2>
+		<p>@Model.recipe.steps</p>
+
+		<div class="comment-section">
+			<h2>Comments</h2>
+			@foreach (var com in Model.comments)
+			{
+				<div class="comment-individual">
+					<h3>@com.name</h3>
+					@if (User.Identity.IsAuthenticated && com.userId == int.Parse(User.FindFirstValue("UserID")))
+					{
+						<form method="post">
+						<button type="submit" asp-page-handler="DeleteComment" asp-route-id="@com.Id" asp-route-recipe="@Model.recipe.recipeid" name="Delete" value="Delete">Delete</button>
+						</form>
+					}
+					<p style="grid-column:1/-1">@com.userComment</p>
+				</div>
+			}
+			<form method="post">
+			<textarea asp-for="UserComment" class="recipe-input desc-input" type="text" placeholder="Add your comment..."></textarea>
+				<span asp-validation-for="UserComment" class="warning-span"></span>
+				<input asp-page-handler="Comment" asp-route-id="@Model.recipe.recipeid" type="submit" name="comment" value="Comment" class="btn-user-input" />
+			</form>
+		</div>
+	
+	</div>
+}
+else
+{
+	<div class="error">
+		<h1 class="text-danger">Error.</h1>
+		<h2 class="text-danger">An error occurred while processing your request.</h2>
+		<h3 class="text-danger">Exception Message: @Model.ErrorMessage</h3>
+	</div>
+}

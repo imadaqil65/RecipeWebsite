@@ -1,0 +1,117 @@
+﻿@page
+@using MyApplication.Domain.Enums
+@model Web_Application.Pages.ProfileModel
+@{
+	ViewData["Title"] = "Profile";
+}
+<div class="profile-page">
+	<form class="form-design" method="post" asp-page-handler="ProfileUpdate">
+		<p class="font-big" style="display:@Model.display">@Model.Message</p>
+		<h1>Profile</h1>
+		<label class="lbl-user-input">Username</label>
+		<input asp-for="profile.username" class="user-input" type="text" value="@Model.profile.username" />
+		<span class="warning-span" asp-validation-for="profile.username"></span>
+		<label class="lbl-user-input">Email</label>
+		<input asp-for="profile.email" class="user-input" type="email" value="@Model.profile.email" />
+		<span class="warning-span" asp-validation-for="profile.email"></span>
+		<label class="lbl-user-input">First Name</label>
+		<input asp-for="profile.firstname" class="user-input" type="text" value="@Model.profile.firstname" />
+		<span class="warning-span" asp-validation-for="profile.firstname"></span>
+		<label class="lbl-user-input">Middle Name</label>
+		<input asp-for="profile.middlename" class="user-input" type="text" value="@Model.profile.middlename" />
+		<span class="warning-span" asp-validation-for="profile.middlename"></span>
+		<label class="lbl-user-input">Last Name</label>
+		<input asp-for="profile.lastname" class="user-input" type="text" value="@Model.profile.lastname" />
+		<span class="warning-span" asp-validation-for="profile.lastname"></span>
+
+		<a class="a-link" asp-page="/PasswordReset">Change Password</a>
+		<input type="submit" value="Update Profile" class="user-input btn-user-input" />
+	</form>
+	<form class="form-design" method="post">
+		<button class="user-input btn-user-input" asp-page-handler="DeleteAccount" asp-route-id="@Model.userId" type="submit" onclick="return confirm('Are you sure you want to delete your account?')">Delete Account</button>
+	</form>
+	<div class="your-recipes">
+		<button type="button" id="yourRecipesBtn">Your Recipes</button>
+		<button type="button" id="favRecipesBtn">Favorites</button>
+		
+		<div id="your-recipes" class="profile-recipes active">
+			<h3 style="grid-column:1/-1">Your recipes</h3>
+			@foreach (var recipe in Model.YourRecipes)
+			{
+				<a class="recipe-links" asp-page="RecipeDetails" asp-route-id="@recipe.recipeid">
+					<div class="single-recipe">
+						@if (recipe.image != null && recipe.image.Length > 0)
+						{
+							<img class="img-preview" src="data:image/png;base64,@Convert.ToBase64String(recipe.image)" alt="@recipe.name Image">
+						}
+						else
+						{
+							<img src="@recipe.image" class="img-preview" alt="@recipe.name image" />
+						}
+						<p><ion-icon name="heart"></ion-icon>@recipe.TotalLikes</p>
+						<h2><strong>@recipe.name</strong></h2>
+						<h3>author: @recipe.author</h3>
+						<p><strong>@recipe.recipetype.GetEnumDescription()</strong></p>
+						<p>Description: @recipe.desc</p>
+						<p>Ingredients: @recipe.Ingredients</p>
+						<form method="post">
+							<button asp-page-handler="EditDetails" asp-route-id="@recipe.recipeid">Edit</button>
+							<button asp-page-handler="DeleteRecipe" asp-route-id="@recipe.recipeid" type="submit" onclick="return confirm('Are you sure you want to delete this recipe?')">Delete</button>
+						</form>
+					</div>
+				</a>
+			}
+		</div>
+
+
+
+		<div id="fav-recipes" class="profile-recipes">
+			<h3 style ="grid-column:1/-1">Recipes you liked</h3>
+			@foreach (var recipe in Model.FavRecipes)
+			{
+				<a class="recipe-links" asp-page="RecipeDetails" asp-route-id="@recipe.recipeid">
+					<div class="single-recipe">
+						@if (recipe.image != null && recipe.image.Length > 0)
+						{
+							<img class="img-preview" src="data:image/png;base64,@Convert.ToBase64String(recipe.image)" alt="@recipe.name Image">
+						}
+						else
+						{
+							<img src="@recipe.image" class="img-preview" alt="@recipe.name image" />
+						}
+						<p><ion-icon name="heart"></ion-icon>@recipe.TotalLikes</p>
+						<h2><strong>@recipe.name</strong></h2>
+						<h3>author: @recipe.author</h3>
+						<p><strong>@recipe.recipetype.GetEnumDescription()</strong></p>
+						<p>Description: @recipe.desc</p>
+						<p>Ingredients: @recipe.Ingredients</p>
+						@if (Model.account.isAdmin)
+						{
+							<form method="post">
+								<button asp-page-handler="EditDetails" asp-route-id="@recipe.recipeid">Edit</button>
+								<button asp-page-handler="Delete" asp-route-id="@recipe.recipeid" type="submit" onclick="return confirm('Are you sure you want to delete this recipe?')">Delete</button>
+							</form>
+						}
+					</div>
+				</a>
+			}
+		</div>
+
+	</div>
+</div>
+
+@section Scripts
+{
+	<script>
+		document.getElementById('yourRecipesBtn').addEventListener('click', function () {
+			document.getElementById('your-recipes').classList.add('active');
+			document.getElementById('fav-recipes').classList.remove('active');
+		});
+
+		document.getElementById('favRecipesBtn').addEventListener('click', function () {
+			document.getElementById('your-recipes').classList.remove('active');
+			document.getElementById('fav-recipes').classList.add('active');
+		});
+	</script>
+
+}

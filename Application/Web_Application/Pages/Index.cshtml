@@ -1,0 +1,86 @@
+﻿@page
+@using MyApplication.Domain.Enums
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+@*<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>*@
+
+    <div class="index-content">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <h1>Welcome to Recipeasy @User.Identity.Name!</h1>
+    }
+    else
+    {
+        <h1>Welcome to Recipeasy!</h1>
+	}
+        <div class="search">
+            <form method="post">
+                <label for="search">search for recipes...</label>
+                <input asp-for="SearchTerm" type="search" class="searchbar" placeholder="search...">
+                <button type="submit" class="search-btn"><ion-icon name="search-outline" size="medium"></ion-icon></button>
+            </form>
+        </div>
+        <img src="~/img/Cooking-pana.png" alt="Food illustrations by Storyset" class="illust">
+    
+    @if(Model.RecommendedRecipes != null)
+    {
+        <h2 style="grid-column:1/-1; text-align:center">You might also like...</h2>
+        <form method="post" style="grid-column:1/-1; justify-self:center">
+            <button type="submit" asp-page-handler="TopRecipes">Top</button>
+            <button type="submit" asp-page-handler="RandomRecipes">Random</button>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <button type="submit" asp-page-handler="SimilarRecipes">Based on your likes</button>
+            }
+        </form>
+            @if (Model.RecommendedRecipes.Count>0)
+            {
+            <div class="recommendation">
+                <div class="shown-recipes">
+
+                    @foreach (var recipe in Model.RecommendedRecipes)
+                    {
+                        <a class="recipe-links" asp-page="RecipeDetails" asp-route-id="@recipe.recipeid">
+                            <div class="single-recipe">
+                                @*<img src="@recipe.image" class="img-preview" alt="@recipe.name image" />*@
+                                @if (recipe.image != null && recipe.image.Length > 0)
+					            {
+						            <img class="img-preview" src="data:image/png;base64,@Convert.ToBase64String(recipe.image)"/>
+					            }
+					            else
+					            {
+					                <img src="@recipe.image" class="img-preview" alt="@recipe.name image" />
+					            }
+                                <p style="justify-self:center"><ion-icon name="heart-outline"></ion-icon>@recipe.TotalLikes</p>
+                                <h2><strong>@recipe.name</strong></h2>
+                                <h3>author: @recipe.author</h3>
+                                <p><strong>@recipe.recipetype.GetEnumDescription()</strong></p>
+                                <p>Description: @recipe.desc</p>
+                                <p>Ingredients: @recipe.Ingredients</p>
+                            </div>
+                        </a>
+                    }
+                </div>
+            </div>
+            }
+            else
+            {
+            <div class="error" style="grid-column:1/-1">
+                <h1 class="text-danger">Hmm... nothing to show here</h1>
+            </div>
+            }
+    }
+    else{
+        <div class="error" style="grid-column:1/-1">
+            <h1 class="text-danger">Error.</h1>
+            <h2 class="text-danger">Cannot show recipes at the moment</h2>
+            <h3 class="text-danger">Exception Message: @Model.Message</h3>
+        </div>
+    }
+    </div>

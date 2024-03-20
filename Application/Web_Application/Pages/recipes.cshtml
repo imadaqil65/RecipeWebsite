@@ -1,0 +1,85 @@
+﻿@page
+@using MyApplication.Domain.Enums
+@model Web_Application.Pages.recipesModel
+@{
+	ViewData["Title"] = "Recipes"; 
+}
+@if(Model.paginatedRecipes!=null){
+<div class="recipe-content">
+	<div class="filter-layout">
+		<form method="get">
+			<input asp-for="searchterm" type="search" class="recipe-searchbar" placeholder="search...">
+			<button type="submit" class="search-btn"><ion-icon name="search-outline" size="medium"></ion-icon></button>
+			<label asp-for="searchterm" class="lbl-recipe">Recipe Type</label>
+			<select id="recipe-type" asp-for="recipeType" class="recipe-input">
+				<option value="">-</option>
+				@foreach (recipetype type in Enum.GetValues(typeof(recipetype)))
+				{
+					<option value="@Convert.ToInt32(type)">@type.GetEnumDescription()</option>
+				}
+			</select>
+		</form>
+	</div>
+	<div class="shown-recipes">
+
+		@foreach (var recipe in Model.paginatedRecipes)
+		{
+			<a class="recipe-links" asp-page="RecipeDetails" asp-route-id="@recipe.recipeid">
+				<div class="single-recipe">
+					@*<img src="@recipe.image" class="img-preview" alt="@recipe.name image" />*@
+					@if (recipe.image != null && recipe.image.Length > 0)
+					{
+						<img class="img-preview" src="data:image/png;base64,@Convert.ToBase64String(recipe.image)" alt="@recipe.name Image">
+					}
+					else
+					{
+						<img src="@recipe.image" class="img-preview" alt="@recipe.name image" />
+					}
+					<p><ion-icon name="heart-outline"></ion-icon>@recipe.TotalLikes</p>
+					<h2><strong>@recipe.name</strong></h2>
+					<h3>author: @recipe.author</h3>
+					<p><strong>@recipe.recipetype.GetEnumDescription()</strong></p>
+					<p>Description: @recipe.desc</p>
+					<p>Ingredients: @recipe.Ingredients</p>
+				</div>
+			</a>	
+		}
+	</div>
+	<div @*class="pagination"*@>
+		<ul class="pagination">
+
+			@if (Model.paginatedRecipes.HasPreviousPage)
+			{
+				<li class="page-item">
+					<a class="page-link" asp-page="/Recipes" asp-route-PageIndex="1">&lt;&lt;</a>
+				</li>
+				<li class="page-item">
+					<a class="page-link" asp-page="/Recipes" asp-route-PageIndex="@(Model.paginatedRecipes.PageIndex - 1)" >&lt;</a>
+				</li>
+			}
+			@foreach (int pageNumber in ViewData["VisiblePageNumbers"] as IEnumerable<int>)
+			{
+				<li class="page-item @(pageNumber == Model.paginatedRecipes.PageIndex ? "active" : "")">
+					<a class="page-link" asp-page="/Recipes" asp-route-PageIndex="@pageNumber" >@pageNumber</a>
+				</li>
+			}
+			@if (Model.paginatedRecipes.HasNextPage)
+			{
+				<li class="page-item">
+					<a class="page-link" asp-page="/Recipes" asp-route-PageIndex="@(Model.paginatedRecipes.PageIndex + 1)" >></a>
+				</li>
+				<li class="page-item">
+					<a class="page-link" asp-page="/Recipes" asp-route-PageIndex="@Model.paginatedRecipes.TotalPages">>></a>
+				</li>
+			}
+		</ul>
+	</div>
+</div>
+}
+else{
+	<div class="error">
+		<h1 class="text-danger">Error.</h1>
+		<h2 class="text-danger">An error occurred while processing your request.</h2>
+		<h3 class="text-danger">Exception Message: @Model.Message</h3>
+	</div>
+}

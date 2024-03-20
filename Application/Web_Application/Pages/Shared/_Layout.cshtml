@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipeasy - @ViewData["Title"]</title>
+    <link rel="icon" href="" type="image/x-icon">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+    <div class="main-body">
+    <header>
+        <img src="~/img/logo-transparent.png" alt="Recipeasy Logo" class="logo">
+            <button class="navbar-toggler">
+                <ion-icon name="menu-outline"></ion-icon>
+            </button>
+            <div class="navibar">
+                <a asp-page="/Index">Home</a>
+                <a asp-page="/Recipes">Recipes</a>
+                @if(User.Identity.IsAuthenticated)
+                {
+                    <a asp-page="/AddRecipe">Add Recipe</a>
+                    <a asp-page="/Profile">Profile</a>
+                    <a class="nav-link" asp-page="/Logout" onclick="return confirm('Are you sure you want to Log Out?')">Log Out</a>
+                }
+                else
+                {
+                    <a asp-page="/Login">Login</a>
+                    <a asp-page="/Register">Register</a>
+                }
+            </div>
+    </header>
+        @RenderBody()
+    <footer>
+        <div>
+            @*&copy; 2023 - Web_Application - <a asp-area="" asp-page="/ContactPage">Contact</a>*@
+                <p class="lbl-user-input">&copy; @DateTime.Now.Year.ToString() Recipeasy</p>
+        </div>
+    </footer>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

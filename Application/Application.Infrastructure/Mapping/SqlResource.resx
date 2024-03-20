@@ -1,0 +1,348 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CheckEmail" xml:space="preserve">
+    <value>SELECT COUNT(*) FROM [user] WHERE email = @email AND shown = 1</value>
+  </data>
+  <data name="CheckUsername" xml:space="preserve">
+    <value>SELECT COUNT(*) FROM [user] WHERE username = @username AND shown = 1</value>
+  </data>
+  <data name="DeleteRecipe" xml:space="preserve">
+    <value>UPDATE [dbo].[recipe]
+   SET [shown] = 0
+ WHERE recipeId = @recipeId</value>
+    <comment>Works for all DELETE function in every inheritance(s)</comment>
+  </data>
+  <data name="DeleteUser" xml:space="preserve">
+    <value>UPDATE [user] SET shown = 0 WHERE userID = @id</value>
+  </data>
+  <data name="GetDessertById" xml:space="preserve">
+    <value>SELECT r.*, u.username, d.* FROM recipe r join dessert d on r.recipeId = d.FK_recipeId INNER JOIN [user] u on r.FK_authorId = u.userID WHERE r.recipeId = @id</value>
+  </data>
+  <data name="GetDietaryTypes" xml:space="preserve">
+    <value>SELECT * FROM [maincourse-diet] WHERE FK_MainCourseId = @id</value>
+  </data>
+  <data name="GetDrinkById" xml:space="preserve">
+    <value>SELECT r.*,u.username,d.* FROM recipe r JOIN [user] u on r.FK_authorid = u.userID JOIN drink d on r.recipeId = d.FK_recipeId WHERE r.recipeId=@id</value>
+  </data>
+  <data name="GetHashedPasswordByUsername" xml:space="preserve">
+    <value>SELECT password FROM [user] WHERE username = @username</value>
+  </data>
+  <data name="GetMainCourseById" xml:space="preserve">
+    <value>SELECT r.*, u.username, m.* FROM recipe r join maincourse m on r.recipeId = m.FK_recipeId INNER JOIN [user] u on r.FK_authorId = u.userID WHERE r.recipeId = @id</value>
+  </data>
+  <data name="GetRecipeById" xml:space="preserve">
+    <value>SELECT r.*, u.username FROM recipe r LEFT JOIN [user] u ON r.FK_authorId = u.userID WHERE r.recipeId = @id</value>
+  </data>
+  <data name="GetUserByEmail" xml:space="preserve">
+    <value>SELECT * FROM [user] WHERE email=@username</value>
+  </data>
+  <data name="GetUserById" xml:space="preserve">
+    <value>SELECT * FROM [user] WHERE userID=@id</value>
+  </data>
+  <data name="GetUserByName" xml:space="preserve">
+    <value>SELECT * FROM [user] WHERE username=@username</value>
+  </data>
+  <data name="InsertDessert" xml:space="preserve">
+    <value>INSERT INTO [dbo].[dessert]
+           ([FK_recipeId]
+           ,[desserttype]
+           ,[servingmethod]
+           ,[topping])
+     VALUES
+           (@recipeId
+           ,@dessertType
+           ,@servingMethod
+           ,@topping)</value>
+  </data>
+  <data name="InsertDietaryRestriction" xml:space="preserve">
+    <value>INSERT INTO [dbo].[mainCourse-Diet]
+           ([FK_MainCourseId]
+           ,[FK_DietaryRestictionId])
+     VALUES
+           (@mainCourseId
+           ,@DietId)</value>
+  </data>
+  <data name="InsertDrink" xml:space="preserve">
+    <value>INSERT INTO [dbo].[drink]
+           ([FK_recipeId]
+           ,[alcoholic]
+           ,[drinktype]
+           ,[glasstype])
+     VALUES
+           (@recipeid
+           ,@alcoholic
+           ,@drinktype
+           ,@glasstype)</value>
+  </data>
+  <data name="InsertMainCourse" xml:space="preserve">
+    <value>INSERT INTO [dbo].[maincourse]
+           ([FK_recipeId]
+           ,[cuisineType]
+           ,[servingSuggestion])
+     VALUES
+           (@recipeid
+           ,@cuisinetype
+           ,@servingsuggestion);</value>
+  </data>
+  <data name="InsertRecipe" xml:space="preserve">
+    <value>INSERT INTO [dbo].[recipe]
+           (FK_authorId
+           ,name
+           ,description
+           ,FK_recipetype
+           ,Ingredients
+           ,preptime
+           ,cooktime
+           ,steps
+           ,shown
+           ,image)
+     VALUES
+           (@authorid
+           ,@name
+           ,@desc
+           ,@recipetype
+           ,@Ingredients
+           ,@preptime
+           ,@cooktime
+           ,@steps
+           , 1
+           ,@image); SELECT SCOPE_IDENTITY();</value>
+    <comment>Includes Scope Identity</comment>
+  </data>
+  <data name="InsertRecipeNoImage" xml:space="preserve">
+    <value>INSERT INTO [dbo].[recipe]
+           (FK_authorId
+           ,name
+           ,description
+           ,FK_recipetype
+           ,Ingredients
+           ,preptime
+           ,cooktime
+           ,steps
+           ,shown)
+     VALUES
+           (@authorid
+           ,@name
+           ,@desc
+           ,@recipetype
+           ,@Ingredients
+           ,@preptime
+           ,@cooktime
+           ,@steps
+           , 1); SELECT SCOPE_IDENTITY();</value>
+    <comment>Includes Scope Identity</comment>
+  </data>
+  <data name="InsertUser" xml:space="preserve">
+    <value>INSERT INTO [dbo].[user]
+           ([username]
+           ,[password]
+           ,[firstname]
+           ,[middlename]
+           ,[lastname]
+           ,[email]
+           ,[admin]
+           ,[shown])
+     VALUES
+           (@username
+           ,@password
+           ,@firstname
+           ,@middlename
+           ,@lastname
+           ,@email
+           ,@admin
+           ,1)</value>
+  </data>
+  <data name="UpdateDessert" xml:space="preserve">
+    <value>UPDATE [dbo].[dessert] SET
+           [desserttype] = @desserttype
+           ,[servingmethod] = @servingmethod
+           ,[topping] = @topping
+WHERE [FK_recipeId] = @recipeId</value>
+  </data>
+  <data name="UpdateDrink" xml:space="preserve">
+    <value>UPDATE [dbo].[drink] SET
+           [alcoholic] = @alcoholic
+           ,[drinktype] = @drinktype
+           ,[glasstype] = @glasstype
+WHERE [FK_recipeId] = @recipeId</value>
+  </data>
+  <data name="UpdateMainCourse" xml:space="preserve">
+    <value>UPDATE [dbo].[maincourse] SET
+           [cuisineType] = @cuisineType
+           ,[servingSuggestion] = @servingsuggestion
+WHERE [FK_recipeId] = @recipeId</value>
+  </data>
+  <data name="UpdateRecipe" xml:space="preserve">
+    <value>UPDATE [dbo].[recipe]
+   SET [FK_authorId] = @authorid
+      ,[name] = @name
+      ,[description] = @desc
+      ,[FK_recipetype] = @recipetype
+      ,[Ingredients] = @Ingredients
+      ,[preptime] = @preptime
+      ,[cooktime] = @cooktime
+      ,[steps] = @steps
+      ,[shown] = @shown
+      ,[image] = @image
+WHERE recipeId = @recipeId; 
+SELECT SCOPE_IDENTITY();</value>
+    <comment>Include Scope Identity</comment>
+  </data>
+  <data name="UpdateUser" xml:space="preserve">
+    <value>UPDATE [dbo].[user] 
+          SET username=@username, password=@password, firstname=@firstname, middlename=@middlename, lastname=@lastname, email=@email, admin=@admin, shown=@shown WHERE userID=@id</value>
+  </data>
+  <data name="ViewActiveDesserts" xml:space="preserve">
+    <value>SELECT r.*, u.username, d.* FROM recipe r join dessert d on r.recipeId = d.FK_recipeId INNER JOIN [user] u on r.FK_authorId = u.userID WHERE r.shown = 1</value>
+  </data>
+  <data name="ViewActiveDrinks" xml:space="preserve">
+    <value>SELECT r.*, u.username, d.* FROM recipe r join drink d on r.recipeId = d.FK_recipeId INNER JOIN [user] u on r.FK_authorId = u.userID WHERE r.shown = 1</value>
+  </data>
+  <data name="ViewActiveMainCourse" xml:space="preserve">
+    <value>SELECT r.*, u.username, m.* FROM recipe r join maincourse m on r.recipeId = m.FK_recipeId INNER JOIN [user] u on r.FK_authorId = u.userID WHERE r.shown = 1</value>
+  </data>
+  <data name="ViewActiveRecipes" xml:space="preserve">
+    <value>SELECT r.*, u.username FROM recipe r LEFT JOIN [user] u ON r.FK_authorId = u.userID WHERE r.shown = 1</value>
+  </data>
+  <data name="ViewActiveRecipesPerType" xml:space="preserve">
+    <value>SELECT r.*, u.username FROM recipe r LEFT JOIN [user] u ON r.FK_authorId = u.userID WHERE r.shown = 1 AND r.FK_recipetype = @type</value>
+  </data>
+  <data name="ViewActiveUsers" xml:space="preserve">
+    <value>SELECT * FROM [user] WHERE shown = 1</value>
+  </data>
+  <data name="ViewAllDessert" xml:space="preserve">
+    <value>SELECT r.*, u.username FROM recipe r LEFT JOIN [user] u ON r.FK_authorId = u.userID WHERE r.FK_recipetype = 3</value>
+  </data>
+  <data name="ViewAllDrinks" xml:space="preserve">
+    <value>SELECT r.*, u.username FROM recipe r LEFT JOIN [user] u ON r.FK_authorId = u.userID WHERE r.FK_recipetype = 2</value>
+  </data>
+  <data name="ViewAllMainCourses" xml:space="preserve">
+    <value>SELECT r.*, u.username, m.* FROM recipe r join maincourse m on r.recipeId = m.FK_recipeId INNER JOIN [user] u on r.FK_authorId = u.userID</value>
+  </data>
+  <data name="ViewAllRecipes" xml:space="preserve">
+    <value>SELECT r.*, u.username FROM recipe r LEFT JOIN [user] u ON r.FK_authorId = u.userID</value>
+  </data>
+  <data name="ViewAllUsers" xml:space="preserve">
+    <value>SELECT * FROM [user]</value>
+  </data>
+  <data name="ViewRecipesFromUser" xml:space="preserve">
+    <value>SELECT r.*, u.username FROM recipe r LEFT JOIN [user] u ON r.FK_authorId = u.userID WHERE r.shown = 1 AND r.FK_authorId = @userId</value>
+  </data>
+</root>
